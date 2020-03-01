@@ -186,7 +186,6 @@ foreach ($update as $raid) {
     // Retrieve form data
     if ( isset($raid['message']['form']) ) {
         $form_id = $raid['message']['form'];
-      }
     }
     $gender = 0;
     if ( isset($raid['message']['gender']) ) {

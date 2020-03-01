@@ -313,6 +313,24 @@ function get_active_raids()
 }
 
 /**
+ * Get pokedex id & form name from a combined name, if a combined name was used.
+ * @param $pokemon_name
+ * @return string
+ */
+function get_pokemon_id_form($pokemon) {
+    if(strpos($pokemon, '-') !== false) {
+        $dex_id_form = explode('-',$pokemon);
+        $pokedex_id = $dex_id_form[0];
+        $pokemon_form = $dex_id_form[1];
+    } else {
+        $pokedex_id = $pokemon;
+        $pokemon_form = 'normal'; // TODO(artanicus): hardcoded to normal since there's no logic yet to get this
+    }
+
+    return array($pokedex_id, $pokemon_form);
+}
+
+/**
  * Get pokedex id by name of pokemon.
  * @param $pokemon_name
  * @return string
@@ -432,11 +450,10 @@ function get_pokemon_id_by_name($pokemon_name)
  */
 function get_local_pokemon_name($pokemon_id_form, $override_language = false)
 {
+    $ids = get_pokemon_id_form($pokemon_name);
+    $pokedex_id = $ids[0];
+    $pokemon_form = $ids[1];
     // Split pokedex_id and form
-    $dex_id_form = explode('-',$pokemon_id_form);
-    $pokedex_id = $dex_id_form[0];
-    $pokemon_form = $dex_id_form[1];
-
     debug_log('Pokemon_form: ' . $pokemon_form);
 
     // Get translation type

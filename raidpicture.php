@@ -174,8 +174,7 @@ if($time_now < $raid['end_time']) {
     // if form_id is set, raid came from webhook and asset_id will be easier to figure out
     if(!empty($raid['form_id']) && is_file(CONFIG_PATH . '/assetmap.json')) {
         $assetmap = json_decode(file_get_contents(CONFIG_PATH . '/assetmap.json'));
-        $pokemon_form = $assetmap->{$raid['form_id']}
-    
+        $pokemon_form = $assetmap->{$raid['form_id']};
     } else {
         // Build array to map pokedex_id-form to filenames
         $pokeforms = array(
