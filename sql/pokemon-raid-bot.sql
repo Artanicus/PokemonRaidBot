@@ -97,6 +97,7 @@ CREATE TABLE `raids` (
   `move1` varchar(255) DEFAULT NULL,
   `move2` varchar(255) DEFAULT NULL,
   `gender` varchar(255) DEFAULT NULL,
+  `form_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `end_time` (`end_time`),
   KEY `user_id` (`user_id`)
