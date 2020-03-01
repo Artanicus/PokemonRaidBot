@@ -85,9 +85,10 @@ Telegram webhook bot for organizing raids in Pokemon Go. Developers are welcome 
          * [gohub-raid-boss-pokedex.sql](#gohub-raid-boss-pokedexsql)
       * [Translations](#translations)
          * [translate.py](#translatepy)
+      * [Form Asset mapping](#form-asset-mapping)
             * [Usage](#usage)
 
-<!-- Added by: artanicus, at: Sun Feb 23 12:43:55 EET 2020 -->
+<!-- Added by: artanicus, at: Sun Mar  1 21:22:09 EET 2020 -->
 
 <!--te-->
 
@@ -1156,6 +1157,16 @@ Translations are mainly stored in `lang/language.json`. Any string marked as `TR
 
 To help in adding a new translation or improving an existing one the `lang/` folder has a tool called `translate.py`
 It will add placeholders for a new language and allow you to incrementally and interatively translate strings. All changes are saved as you go.
+
+## Form Asset mapping
+
+If raid images are enabled and webhook raid creation is used there is a need to map pokemon form identifiers to asset identifiers to find the right image to use. `config/assetmap.json` contains a static mapping for this but if new forms are released it will need to be updated. The tool requires python3 to be installed but only needs to be run by a developer a few times a year.
+
+```
+pip3 install -r tools/assetmap/requirements.txt # only needed once to install the dependencies
+$ tools/assetmap/gen_assetmap.sh > config/assetmap.json
+```
+
 
 #### Usage
 

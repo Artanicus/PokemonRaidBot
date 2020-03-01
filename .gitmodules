@@ -1,3 +1,6 @@
 [submodule "core"]
 	path = core
 	url = https://github.com/florianbecker/php.core.telegram.git
+[submodule "assetmap"]
+	path = tools/assetmap
+	url = https://github.com/Artanicus/assetmap.git
