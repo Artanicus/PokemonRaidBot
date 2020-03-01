@@ -236,12 +236,19 @@ if($time_now < $raid['end_time']) {
     } else {
         // Formatting the id from 1 digit to 3 digit (1 -> 001)
         $pokemon_id = str_pad($raid['pokedex_id'], 3, '0', STR_PAD_LEFT);
+        // Get full asset id based on type of asset_id
+        if (strlen($pokemon_form) > 2) {
+            // new-style long asset prefix
+            $full_asset_id = $pokemon_form;
+        } else {
+            $full_asset_id = $pokemon_id . "_" . $pokemon_form;
+        }
 
         // Getting the actual icon
         if($raid['shiny'] == 1) {
-        	$img_pokemon = imagecreatefrompng(IMAGES_PATH . "/pokemon/pokemon_icon_" . $pokemon_id . "_" . $pokemon_form . "_shiny.png");    
+        	$img_pokemon = imagecreatefrompng(IMAGES_PATH . "/pokemon/pokemon_icon_" . $full_asset_id . "_shiny.png");  
         } else {
-        	$img_pokemon = imagecreatefrompng(IMAGES_PATH . "/pokemon/pokemon_icon_" . $pokemon_id . "_" . $pokemon_form . ".png");
+        	$img_pokemon = imagecreatefrompng(IMAGES_PATH . "/pokemon/pokemon_icon_" . $full_asset_id . ".png");
         }
 	    
         // Position and size of the picture
