@@ -181,10 +181,13 @@ foreach ($update as $raid) {
     if ($pokemon == 0) {
         $pokemon = '999' . $level;
     }
-        
-    // TODO: Translate Form
-    $form = 0;
-    if ( isset($raid['message']['form']) ) {}
+
+    $form_id = 0;
+    // Retrieve form data
+    if ( isset($raid['message']['form']) ) {
+        $form_id = $raid['message']['form'];
+      }
+    }
     $gender = 0;
     if ( isset($raid['message']['gender']) ) {
         
@@ -197,7 +200,6 @@ foreach ($update as $raid) {
        $move_1 = $raid['message']['move_1'];
        $move_2 = $raid['message']['move_2'];   
     }
-    $pokemon = $pokemon . '-normal';
     $start_timestamp = $raid['message']['start'];
     $end_timestamp = $raid['message']['end'];
     $start = gmdate("Y-m-d H:i:s",$start_timestamp);
@@ -233,7 +235,8 @@ foreach ($update as $raid) {
                     gym_team = :gym_team,
                     move1 = :move1,
                     move2 = :move2,
-                    gender = :gender
+                    gender = :gender,
+                    form_id = :form_id
                 WHERE
                     id LIKE :id
             ';
@@ -243,6 +246,7 @@ foreach ($update as $raid) {
             $statement->bindValue(':move1', $move_1, PDO::PARAM_STR);
             $statement->bindValue(':move2', $move_2, PDO::PARAM_STR);
             $statement->bindValue(':gender', $gender, PDO::PARAM_STR);
+            $statement->bindValue(':form_id', $form, PDO::PARAM_INT);
             $statement->bindValue(':id', $raid_id, PDO::PARAM_INT);
             $statement->execute();
         }
