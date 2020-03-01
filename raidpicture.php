@@ -170,49 +170,55 @@ $time_now = utcnow();
 
 // Raid running
 if($time_now < $raid['end_time']) {
-    // Build array to map pokedex_id-form to filenames
-    $pokeforms = array(
-        '150-armored' => '11',
-        '386-normal' => '11',
-        '386-attack' => '12',
-        '386-defense' => '13',
-        '386-speed' => '14',
-        '412-plant' => '11',
-        '412-sandy' => '12',
-        '412-trash' => '13',
-        '487-altered' => '11',
-        '487-origin' => '12',
-        '493-fighting' => '12',
-        '493-flying' => '13',
-        '493-poison' => '14',
-        '493-ground' => '15',
-        '493-rock' => '16',
-        '493-bug' => '17',
-        '493-ghost' => '18',
-        '493-steel' => '19',
-        '493-fire' => '20',
-        '493-water' => '21',
-        '493-grass' => '22',
-        '493-electric' => '23',
-        '493-psychic' => '24',
-        '493-ice' => '25',
-        '493-dragon' => '26',
-        '493-dark' => '27',
-        '493-fairy' => '28',
-        '641-normal' => '11',
-	'642-normal' => '11',
-	'645-normal' => '11'
-    );
-
-    // Map pokemon form for filename
-    $pokemon_form = '00';
-    if(array_key_exists($raid['pokemon'], $pokeforms)) {
-        $pokemon_form = $pokeforms[$raid['pokemon']];
+    $pokemon_form = '00'; // TODO(artanicus): this is actually an asset_id, probably best to rename
+    // if form_id is set, raid came from webhook and asset_id will be easier to figure out
+    if(!empty($raid['form_id']) && is_file(CONFIG_PATH . '/assetmap.json')) {
+        $assetmap = json_decode(file_get_contents(CONFIG_PATH . '/assetmap.json'));
+        $pokemon_form = $assetmap->{$raid['form_id']}
+    
     } else {
-        if($raid['pokemon_form'] == 'alolan') {
-            $pokemon_form = '61';
-        } else if($raid['pokemon_form'] == 'galarian') {
-            $pokemon_form = '31';
+        // Build array to map pokedex_id-form to filenames
+        $pokeforms = array(
+            '150-armored' => '11',
+            '386-normal' => '11',
+            '386-attack' => '12',
+            '386-defense' => '13',
+            '386-speed' => '14',
+            '412-plant' => '11',
+            '412-sandy' => '12',
+            '412-trash' => '13',
+            '487-altered' => '11',
+            '487-origin' => '12',
+            '493-fighting' => '12',
+            '493-flying' => '13',
+            '493-poison' => '14',
+            '493-ground' => '15',
+            '493-rock' => '16',
+            '493-bug' => '17',
+            '493-ghost' => '18',
+            '493-steel' => '19',
+            '493-fire' => '20',
+            '493-water' => '21',
+            '493-grass' => '22',
+            '493-electric' => '23',
+            '493-psychic' => '24',
+            '493-ice' => '25',
+            '493-dragon' => '26',
+            '493-dark' => '27',
+            '493-fairy' => '28',
+            '641-normal' => '11'
+        );
+
+        // Map pokemon form for filename
+        $pokemon_form = '00';
+        if(array_key_exists($raid['pokemon'], $pokeforms)) {
+            $pokemon_form = $pokeforms[$raid['pokemon']];
+        } else {
+            if($raid['pokemon_form'] == 'alolan') {
+                $pokemon_form = '61';
+            } else if($raid['pokemon_form'] == 'galarian') {
+                $pokemon_form = '31';
+            }
         }
     }
 
