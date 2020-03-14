@@ -4245,14 +4245,33 @@ function sendalarm($text, $raid, $user)
 
 }
 
+/**
+ * Convert a form_id into a lower case form name.
+ * @param $form_id
+ */
 function form_id2form($form_id)
 {
     if(is_file(CONFIG_PATH . '/formmap.json')) {
         $formmap = json_decode(file_get_contents(CONFIG_PATH . '/formmap.json'));
         $full_name = $formmap->$form_id;
-        $names = explode('_', strtolower($full_name));
+        $names = explode('_', strtolower($full_name), 2);
         return $names[1]; // return only the form portion
     } else {
       error_log('Cannot do a form_id to form mapping, formmap.json is missing!');
+    }
+}
+
+/**
+ * Convert a pokemon_form string such as GIRATINA_ALTERED into the corresponding form_id.
+ * @param $pokemon_form
+ */
+function pokemon_form2form_id($pokemon_form)
+{
+    if(is_file(CONFIG_PATH . '/formmap.json')) {
+        $formmap = json_decode(file_get_contents(CONFIG_PATH . '/formmap.json'), true);
+        $revmap = array_flip($formmap);
+        return $revmap[$pokemon_form];
+    } else {
+      error_log('Cannot do a pokemon_form to form_id mapping, formmap.json is missing!');
     }
 }
