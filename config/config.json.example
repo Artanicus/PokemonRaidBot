@@ -1,6 +1,5 @@
 { 
   "VERSION":"2.0.117.5",
->>>>>>> 7a832bf... More resilient resolution of pokemon_id-form_id
   "DB_HOST":"localhost",
   "DB_NAME":"your_database_name",
   "DB_USER":"your_database_user",
