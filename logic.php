@@ -450,7 +450,7 @@ function get_pokemon_id_by_name($pokemon_name)
  */
 function get_local_pokemon_name($pokemon_id_form, $override_language = false)
 {
-    $ids = get_pokemon_id_form($pokemon_name);
+    $ids = get_pokemon_id_form($pokemon_id_form);
     $pokedex_id = $ids[0];
     $pokemon_form = $ids[1];
     // Split pokedex_id and form
