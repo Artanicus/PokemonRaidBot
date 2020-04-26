@@ -220,6 +220,10 @@ if($time_now < $raid['end_time']) {
             }
         }
     }
+  
+    if(empty($raid['pokedex_id'])){
+      die('No pokedex_id provided!');
+    }
 
     // Raid Egg
     if($raid['pokedex_id'] > 9990) {
